@@ -130,17 +130,17 @@ function Scroll(){
 function ChangeNextPage(){
 
   // シングルページのリロードの場合は以下。
-  // location.reload(true);
+  // window.location.reload(true);
 
   let str = window.location.href.split('/').pop();
   let n = FileName.length;
 
   if( str == FileName[n-1]){
-    location.href = FileName[0];
+    window.location.href = FileName[0];
   } else {
     for( let i=0; i<n-1; i++ ){
       if( str == FileName[i]) {
-        location.href = FileName[i+1];
+        window.location.href = FileName[i+1];
         break;
       }
     }
