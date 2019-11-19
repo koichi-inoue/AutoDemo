@@ -1,0 +1,12 @@
+body {
+  padding-top: 50px; /* fixed navbar 50px */
+  padding-bottom: 20px;
+}
+
+.jumbotron{
+	background: orange;
+}
+
+.col-md-4 img{
+  width:100%;
+}
