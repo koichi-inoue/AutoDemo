@@ -47,7 +47,7 @@ window.onload = function(){
   window.addEventListener('resize', ResetTimer, true);
   window.addEventListener('scroll', ResetTimer, true);  // デモに入ると Remove される
 
-  timer_1 = window.setInterval(OperationCheck, 500); // 1秒:1000
+  timer_1 = window.setInterval(ElapsedTimeCheck, 500); // 1秒:1000
 
 }
 
@@ -64,7 +64,7 @@ function ResetTimer( event ){
     demo = false; // 通常操作モードへ戻す
     window.clearInterval(timer_2); // 自動スクロールを止める
     window.addEventListener('scroll', ResetTimer, true); // イベントリスナー復活
-    timer_1 = window.setInterval(OperationCheck, 500); // OperationCheck を再スタート
+    timer_1 = window.setInterval(ElapsedTimeCheck, 500); // 経過時間チェックを再スタート
   }
 
   // コンソールにイベントの受信を通知（動作確認用）
@@ -73,7 +73,7 @@ function ResetTimer( event ){
 
 // 時間経過のチェック：timer_1 ///////////////////////
 
-function OperationCheck(){
+function ElapsedTimeCheck(){
 
 　// デモモードへの移行タイミングチェック
   currentTime = new Date();
@@ -94,14 +94,14 @@ function OperationCheck(){
     // タイマーをリセット
     startTime = new Date();
     // デモ（スクロール）を開始
-    timer_2 = window.setInterval(Scroll, ScrollInterval);
+    timer_2 = window.setInterval(DemoScroll, ScrollInterval);
   }
 }
 
 
 // スクロール・アニメーション：timer_2 ///////////////////////
 
-function Scroll(){
+function DemoScroll(){
 
   // スクロール処理
   window.scrollBy(0, 1);
