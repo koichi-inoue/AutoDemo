@@ -1,6 +1,13 @@
-// SETTINGS ///////////////////////////////////
+//////////////////////////////////////////////////////////
+//
+//                        demo.js
+//
+//                   2019, OpenSquareJP
+//
+//////////////////////////////////////////////////////////
 
-// 設定項目１
+// SETTINGS //////////////////
+
 // 自身のサイトの構成に応じて、遷移させたいページの順に、以下の「ファイル名（〜.html）」を書き換えて下さい。ページ数は任意で、追加可能です。
 let FileName = [];
 FileName[0] = "index.html";
@@ -9,13 +16,11 @@ FileName[2] = "gallery.html";
 FileName[3] = "links.html";
 //  以下同様 ：
 
-// 設定項目２
-// 閲覧者のマウス操作がなくなってからデモモードに移行するまでの「経過時間」を設定して下さい。単位は「ミリ秒」です（ 1000で１秒 ）。
+// マウス操作がなくなってからデモに移行するまでの「経過時間」を設定して下さい。単位は「ミリ秒」です。
 let ElapsedTime = 5000; // デフォルト 5秒
 
-// 設定項目３
-// スクロールアニメーションのフレームインターバルを設定して下さい。数字が小さいほどスクロールが早くなります。
-let ScrollInterval = 10; // デフォルト 20ミリ秒
+// スクロールのフレームインターバルを設定して下さい。数字が小さいほどスクロールが早くなります。
+let ScrollInterval = 10; // デフォルト 10ミリ秒
 
 
 // Global Values /////////////
@@ -28,8 +33,7 @@ let currentTime;
 let timer_1;
 let timer_2;
 
-let wy = 0;
-let y;
+let scrollSize;
 
 
 // Initialize ///////////////
@@ -85,13 +89,12 @@ function OperationCheck(){
 
     // ページの先頭へ移動
     window.scrollTo(0, 0);
-
+    // 最大スクロール量 = ドキュメントの高さ -  ウインドウの高さ
+    scrollSize = document.body.scrollHeight - window.innerHeight;
     // タイマーをリセット
     startTime = new Date();
     // デモ（スクロール）を開始
     timer_2 = window.setInterval(Scroll, ScrollInterval);
-    console.log(document.body.scrollHeight);
-    console.log(window.innerHeight);
   }
 }
 
@@ -103,11 +106,8 @@ function Scroll(){
   // スクロール処理
   window.scrollBy(0, 1);
 
-  // 垂直方向のスクロール量 と Window の innerHeight を加える
-  y = window.pageYOffset + window.innerHeight;
-
-  // 上記 y がドキュメンの ScrollHeight と一致した時点でスクロールの終了
-  if( y >= document.body.scrollHeight ){
+  // スクロールの終了判定
+  if( window.pageYOffset + 1 > scrollSize ){
 
       // スクロールのタイマーを止める
       window.clearInterval(timer_2);
@@ -129,15 +129,16 @@ function ChangeNextPage(){
   // シングルページのリロードの場合は以下。
   // window.location.reload(true);
 
-  // URLを分解して、最後の項目を取り出す方法（URLの最後に#などが付くと不完全）
-  //let str = window.location.href.split('/').pop();
+  //let str = window.location.href.split('/').pop();　不採用 注１）
+
+  // URL文字列から、該当する HTMLファイル名を検索する方法を採用
   let str = window.location.href;
   let n = FileName.length;
 
   let flag = false;
   for( let i=0 ; i<n ; i++ ){
     let result = str.indexOf( FileName[i] );
-    if( result > 0) { // 発見
+    if( result > 0) { // 現在のファイル名を発見
       if( i == n-1 ){
         window.location.href = FileName[0];
       }else{
@@ -147,8 +148,21 @@ function ChangeNextPage(){
       break;
     }
   }
-  // 初回アクセスで http://www.example.com などとされた場合
-  // 自身の URLが候補に該当しない。その場合はトップへ遷移。
-  if( !flag ) window.location.href = FileName[0];
+
+  if( !flag ) window.location.href = FileName[1];　// 必要 注２）
 
 }
+
+// 注　///////////////////////////
+
+// 注１
+// URLを分解して、最後の項目を取り出す方法は、
+// 通常は、about.html などのファイル名が得られるが、
+// ユーザの操作中に URLの最後に #section01 など
+// ページ内リンクが付いた場合に文字列の完全一致はなくなるため、
+// 結局その中をサーチする必要がある。
+
+// 注２
+// 初回アクセスで http://www.example.com などとされた場合に
+// 自身の URL に候補の index.html にが含まれない。
+// その場合は トップ（index.html）の次へ遷移。
