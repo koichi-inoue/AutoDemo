@@ -9,7 +9,7 @@
 // SETTINGS //////////////////
 
 // 自身のサイトの構成に応じて、遷移させたいページの順に、以下の「ファイル名（〜.html）」を書き換えて下さい。ページ数は任意で、追加可能です。
-let FileName = [];
+const FileName = [];
 FileName[0] = "index.html";
 FileName[1] = "about.html";
 FileName[2] = "gallery.html";
@@ -17,10 +17,10 @@ FileName[3] = "links.html";
 //  以下同様 ：
 
 // マウス操作がなくなってからデモに移行するまでの「経過時間」を設定して下さい。単位は「ミリ秒」です。
-let ElapsedTime = 5000; // デフォルト 5秒
+const ElapsedTime = 5000; // デフォルト 5秒
 
 // スクロールのフレームインターバルを設定して下さい。数字が小さいほどスクロールが早くなります。
-let ScrollInterval = 10; // デフォルト 10ミリ秒
+const ScrollInterval = 10; // デフォルト 10ミリ秒
 
 
 // Global Values /////////////
