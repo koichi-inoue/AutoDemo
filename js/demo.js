@@ -112,7 +112,7 @@ function DemoScroll(){
       // スクロールのタイマーを止める
       window.clearInterval(timer_2);
       // ページを遷移させる
-      ChangeNextPage();
+      MoveToNextPage();
 
       // ページ先頭に戻す
       // ny = 0;
@@ -124,7 +124,7 @@ function DemoScroll(){
 
 // ページ遷移（あるいはリロード） ////////////////////////
 
-function ChangeNextPage(){
+function MoveToNextPage(){
 
   // シングルページのリロードの場合は以下。
   // window.location.reload(true);
