@@ -110,6 +110,8 @@ function Scroll(){
   // スクロールの終了をチェック
   if(wy == y){
 
+      // スクロールのタイマーを止める
+      window.clearInterval(timer_2);
       // ページを遷移させる
       ChangeNextPage();
 
@@ -138,12 +140,17 @@ function ChangeNextPage(){
   if( str == FileName[n-1]){
     window.location.href = FileName[0];
   } else {
+    let flag = false;
     for( let i=0; i<n-1; i++ ){
       if( str == FileName[i]) {
         window.location.href = FileName[i+1];
+        flag = true;
         break;
       }
     }
+    // 初回アクセスで http://www.example.com などとされた場合
+    // 自身の URLが候補に該当しない。その場合はトップへ遷移。
+    if( !flag ) window.location.href = FileName[0];
   }
 
 }
