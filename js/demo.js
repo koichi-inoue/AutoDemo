@@ -10,7 +10,7 @@
 
 // 自身のサイトの構成に応じて、遷移させたいページの順に、以下の「ファイル名（〜.html）」を書き換えて下さい。ページ数は任意で、追加可能です。
 const FileName = [];
-FileName[0] = "index.html";
+FileName[0] = "index.html";　// 必須
 FileName[1] = "about.html";
 FileName[2] = "gallery.html";
 FileName[3] = "links.html";
@@ -149,7 +149,7 @@ function MoveToNextPage(){
     }
   }
 
-  if( !flag ) window.location.href = FileName[1];　// 必要 注２）
+  if( !flag ) window.location.href = FileName[0];　// 必要 注２）
 
 }
 
